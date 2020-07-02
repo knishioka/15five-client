@@ -7,8 +7,12 @@ import coreapi
 
 class BaseModel:
     """Base Model."""
+    api_base_path = 'https://my.15five.com/api/public/'
 
-    def __init__(self):
+    @classmethod
+    def client(get, token=None):
         """Initialize 15five model."""
-        auth = coreapi.auth.TokenAuthentication(token=os.environ['FIFTEEN_FIVE_TOKEN'])
-        self.client = coreapi.Client(auth=auth)
+        if token is None:
+            token = os.environ['FIFTEEN_FIVE_TOKEN']
+        auth = coreapi.auth.TokenAuthentication(token=token)
+        return coreapi.Client(auth=auth)
