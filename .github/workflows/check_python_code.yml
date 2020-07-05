@@ -5,6 +5,7 @@ on:
     paths:
     - '**.py'
     - '.github/workflows/check_python_code.yml'
+    - '**/requirements.txt'
 
 jobs:
   check-python-scripts:
