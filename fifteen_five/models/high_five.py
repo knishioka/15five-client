@@ -32,8 +32,7 @@ class HighFive(BaseModel):
             `list` of `HighFive`
 
         """
-        res = BaseModel.client().get(cls.api_path)
-        # FIXME: Need to iterate when res['next'] is None.
+        results = cls.row_all()
         high_fives = [HighFive(id=hf['id'], report=hf['report'], create_ts=parse(hf['create_ts']), text=hf['text'])
-                      for hf in res['results']]
+                      for hf in results]
         return high_fives
