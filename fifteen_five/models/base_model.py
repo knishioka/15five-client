@@ -8,6 +8,7 @@ import coreapi
 class BaseModel:
     """Base Model."""
     api_base_path = 'https://my.15five.com/api/public/'
+    valid_keys = []
 
     @classmethod
     def client(cls, token=None):
@@ -19,10 +20,41 @@ class BaseModel:
 
     @classmethod
     def row_all(cls):
-        """Get all results."""
+        """Fetch all results."""
         res = cls.client().get(cls.api_path)
         results = res['results']
         while next_path := res['next']:
             res = cls.client().get(next_path)
             results += res['results']
         return results
+
+    @classmethod
+    def all(cls):
+        """Fetch all data as model class."""
+        return [cls.from_dict(row) for row in cls.row_all()]
+
+    @classmethod
+    def from_dict(cls, result_dict):
+        """Create instance from dict.
+
+        Args:
+            result_dict (dict): API results.
+
+        Returns:
+            BaseModel
+
+        """
+        return cls(**cls.valid_args(result_dict))
+
+    @classmethod
+    def valid_args(cls, result_dict):
+        """Extract valid key value pairs.
+
+        Args:
+            result_dict (dict): API results.
+
+        Returns:
+            dict: dict including only valid keys.
+
+        """
+        return {key: result_dict[key] for key in cls.valid_keys}
