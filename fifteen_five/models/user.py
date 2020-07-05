@@ -5,8 +5,9 @@ from .base_model import BaseModel
 
 class User(BaseModel):
     """Use model."""
-    api_path = BaseModel.api_base_path + 'user/'
-    valid_keys = ['id', 'first_name', 'last_name', 'email']
+
+    api_path = BaseModel.api_base_path + "user/"
+    valid_keys = ["id", "first_name", "last_name", "email"]
 
     def __init__(self, id, first_name, last_name, email):
         """Initialize user.

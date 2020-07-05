@@ -7,8 +7,9 @@ from .base_model import BaseModel
 
 class HighFive(BaseModel):
     """HighFive model."""
-    api_path = BaseModel.api_base_path + 'high-five/'
-    valid_keys = ['id', 'report', 'create_ts', 'text']
+
+    api_path = BaseModel.api_base_path + "high-five/"
+    valid_keys = ["id", "report", "create_ts", "text"]
 
     def __init__(self, id, report, create_ts, text):
         """Initialize high five.

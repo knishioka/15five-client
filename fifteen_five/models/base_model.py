@@ -7,14 +7,15 @@ import coreapi
 
 class BaseModel:
     """Base Model."""
-    api_base_path = 'https://my.15five.com/api/public/'
+
+    api_base_path = "https://my.15five.com/api/public/"
     valid_keys = []
 
     @classmethod
     def client(cls, token=None):
         """Initialize 15five model."""
         if token is None:
-            token = os.environ['FIFTEEN_FIVE_TOKEN']
+            token = os.environ["FIFTEEN_FIVE_TOKEN"]
         auth = coreapi.auth.TokenAuthentication(token=token)
         return coreapi.Client(auth=auth)
 
@@ -22,10 +23,10 @@ class BaseModel:
     def row_all(cls):
         """Fetch all results."""
         res = cls.client().get(cls.api_path)
-        results = res['results']
-        while next_path := res['next']:
+        results = res["results"]
+        while next_path := res["next"]:
             res = cls.client().get(next_path)
-            results += res['results']
+            results += res["results"]
         return results
 
     @classmethod
