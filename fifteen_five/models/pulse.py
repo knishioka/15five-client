@@ -2,7 +2,6 @@
 
 from dateutil.parser import parse
 
-
 from .base_model import BaseModel
 
 
@@ -13,7 +12,7 @@ class Pulse(BaseModel):
     valid_keys = ["id", "report", "user", "create_ts", "value"]
 
     def __init__(self, id, report, user, create_ts, value):
-        """
+        """Initialize Pulse.
 
         Args:
             id (int): pulse id.
