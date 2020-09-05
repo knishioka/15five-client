@@ -30,6 +30,18 @@ class BaseModel:
         return results
 
     @classmethod
+    def find(cls, id):
+        """Find data by id."""
+        res = cls.client().get(f"{cls.api_path}{id}")
+        return cls.from_dict(res)
+
+    @classmethod
+    def find_by_url(cls, url):
+        """Find data by url."""
+        res = cls.client().get(url)
+        return cls.from_dict(res)
+
+    @classmethod
     def all(cls):
         """Fetch all data as model class."""
         return [cls.from_dict(row) for row in cls.row_all()]
