@@ -84,7 +84,7 @@ class BaseModel:
             dict: dict including only valid keys.
 
         """
-        return {key: result_dict[key] for key in cls.valid_keys}
+        return {key: result_dict.get(key) for key in cls.valid_keys}
 
     def to_dict(self):
         """Export model as dict."""
