@@ -3,8 +3,6 @@
 from dateutil.parser import parse
 
 from .base_model import BaseModel
-from .report import Report
-from .user import User
 
 
 class Pulse(BaseModel):
@@ -33,13 +31,3 @@ class Pulse(BaseModel):
         self._user = user
         self.create_ts = parse(create_ts)
         self.value = int(value)
-
-    @property
-    def user(self):
-        """Reported user."""
-        return User.find_by_url(self._user)
-
-    @property
-    def report(self):
-        """Pulse report."""
-        return Report.find_by_url(self._report)

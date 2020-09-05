@@ -89,3 +89,17 @@ class BaseModel:
     def to_dict(self):
         """Export model as dict."""
         return {key: self.__getattribute__(key) for key in self.valid_keys}
+
+    @property
+    def user(self):
+        """Reported user."""
+        from .user import User
+
+        return User.find_by_url(self._user)
+
+    @property
+    def report(self):
+        """Pulse report."""
+        from .report import Report
+
+        return Report.find_by_url(self._report)

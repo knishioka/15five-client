@@ -4,7 +4,11 @@ from .base_model import BaseModel
 
 
 class Report(BaseModel):
-    """Report Model."""
+    """Report Model.
+
+    Examples:
+        >>> Report.all(params={"due_date_start": "2020-09-01", "due_date_end": "2020-09-06"})
+    """
 
     api_path = BaseModel.api_base_path + "report/"
     valid_keys = ["id", "user", "due_date"]
@@ -19,5 +23,5 @@ class Report(BaseModel):
 
         """
         self.id = id
-        self.user = user
+        self._user = user
         self.due_date = due_date
