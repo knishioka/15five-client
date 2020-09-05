@@ -71,3 +71,7 @@ class BaseModel:
 
         """
         return {key: result_dict[key] for key in cls.valid_keys}
+
+    def to_dict(self):
+        """Export model as dict."""
+        return {key: self.__getattribute__(key) for key in self.valid_keys}
