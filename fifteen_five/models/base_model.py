@@ -20,9 +20,14 @@ class BaseModel:
         return coreapi.Client(auth=auth)
 
     @classmethod
-    def row_all(cls):
+    def row_all(cls, params):
         """Fetch all results."""
-        res = cls.client().get(cls.api_path)
+        if params is None:
+            url = cls.api_path
+        else:
+            query_params = "&".join([f"{k}={v}" for k, v in params.items()])
+            url = f"{cls.api_path}?{query_params}"
+        res = cls.client().get(url)
         results = res["results"]
         while next_path := res["next"]:
             res = cls.client().get(next_path)
@@ -42,9 +47,18 @@ class BaseModel:
         return cls.from_dict(res)
 
     @classmethod
-    def all(cls):
-        """Fetch all data as model class."""
-        return [cls.from_dict(row) for row in cls.row_all()]
+    def all(cls, params=None):
+        """Fetch all data as model class.
+
+        Args:
+            cls (BaseModel)
+            params (dict): query parameters.
+
+        Returns:
+            `list` of `BaseModel`
+
+        """
+        return [cls.from_dict(row) for row in cls.row_all(params)]
 
     @classmethod
     def from_dict(cls, result_dict):
